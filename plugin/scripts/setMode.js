@@ -1,5 +1,6 @@
 class ButtonTheme {
     constructor() {
+        this.activate = false
         let block = document.createElement('div')
         block.className = 'ProEge-Theme'
         document.body.appendChild(block)
@@ -8,15 +9,31 @@ class ButtonTheme {
     }
 
     updateToDark() {
+        button.block.className += ' black'
+        button.activate = true
         let allElementDiv = document.body.getElementsByTagName("*");
         for (let i = 0; i < allElementDiv.length; i++) {
-            allElementDiv[i].className += ' black'
+            allElementDiv[i].classList.add('black')
+        }
+    }
+
+    updateToDefault() {
+        button.block.classList.remove('black')
+        button.activate = false
+        let allElementDiv = document.body.getElementsByTagName("*")
+        for (let i = 0; i < allElementDiv.length; i++) {
+            allElementDiv[i].classList.remove('black')
         }
 
     }
+
+    setTheme() {
+        if (button.activate) button.updateToDefault()
+        else button.updateToDark()
+            }
 }
 
 
 let button = new ButtonTheme()
 
-button.block.addEventListener("click", button.updateToDark)
+button.block.addEventListener("click", button.setTheme)
